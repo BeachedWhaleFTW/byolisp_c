@@ -1,19 +1,29 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-static char input[2048];
+#include <editline/readline.h>
 
 int main(int argc, char** argv) {
 
-    puts("Welcome to LISPY");
-    puts("Press Ctrl+c to Exit\n");
-  
+  /* print welcome info */
+  puts("Welcome to BYOLISP_C");
+  puts("Press Ctrl+c to Exit\n");
+
+  /* it goes on and on my friend */
   while (1) {
 
-    fputs(">> ", stdout);
+    /* output prompt and get input. note: readline() allocates new memory */
+    char* input = readline(">> ");
 
-    fgets(input, 2048, stdin);
+    /* add input to history */
+    add_history(input);
 
-    printf("%s", input);
+    /* echo back to user. note: readline() strips \n so it is added */
+    printf("%s\n", input);
+
+    /* free input. note: readline() allocates new memory */
+    free(input);
+    
   }
 
   return 0;
